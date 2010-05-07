@@ -23,7 +23,7 @@ my %WriteMakefileArgs = (
                                            },
                        'ABSTRACT' => 'Build your distributions like FLORA does',
                        'EXE_FILES' => [],
-                       'VERSION' => '0.01',
+                       'VERSION' => '0.02',
                        'PREREQ_PM' => {
                                         'MooseX::Types::Moose' => '0',
                                         'Dist::Zilla::Plugin::PodWeaver' => '0',
@@ -39,6 +39,7 @@ my %WriteMakefileArgs = (
                                         'Method::Signatures::Simple' => '0',
                                         'Dist::Zilla::Plugin::AutoPrereq' => '0',
                                         'Dist::Zilla::PluginBundle::Classic' => '0',
+                                        'Dist::Zilla::Plugin::Authority' => '0',
                                         'Dist::Zilla::Plugin::MetaJSON' => '0',
                                         'Dist::Zilla::Plugin::TaskWeaver' => '0'
                                       },
