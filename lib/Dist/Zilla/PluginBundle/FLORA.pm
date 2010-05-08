@@ -2,9 +2,6 @@ package Dist::Zilla::PluginBundle::FLORA;
 BEGIN {
   $Dist::Zilla::PluginBundle::FLORA::AUTHORITY = 'cpan:FLORA';
 }
-BEGIN {
-  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.02';
-}
 # ABSTRACT: Build your distributions like FLORA does
 
 use Moose 1.00;
@@ -140,17 +137,13 @@ override BUILDARGS => method ($class:) {
 };
 
 method configure {
-    $self->add_bundle('@Filter' => {
-        bundle => '@Classic',
-        remove => [qw(
-            PodVersion
-            BumpVersion
-        )],
-    });
+    $self->add_bundle('@Basic');
 
     $self->add_plugins(qw(
         MetaConfig
         MetaJSON
+        PodSyntaxTests
+        PodCoverageTests
     ));
 
     $self->add_plugins(
