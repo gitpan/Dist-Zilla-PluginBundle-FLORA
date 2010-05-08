@@ -41,7 +41,7 @@
       "homepage" : "http://search.cpan.org/dist/Dist-Zilla-PluginBundle-FLORA",
       "repository" : "git://github.com/rafl/dist-zilla-pluginbundle-flora.git"
    },
-   "version" : "0.03",
+   "version" : "0.04",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -122,6 +122,11 @@
          {
             "class" : "Dist::Zilla::Plugin::MetaJSON",
             "name" : "@FLORA/MetaJSON",
+            "version" : "2.101241"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::PkgVersion",
+            "name" : "@FLORA/PkgVersion",
             "version" : "2.101241"
          },
          {

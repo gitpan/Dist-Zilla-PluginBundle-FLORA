@@ -2,6 +2,9 @@ package Dist::Zilla::PluginBundle::FLORA;
 BEGIN {
   $Dist::Zilla::PluginBundle::FLORA::AUTHORITY = 'cpan:FLORA';
 }
+BEGIN {
+  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.04';
+}
 # ABSTRACT: Build your distributions like FLORA does
 
 use Moose 1.00;
@@ -142,6 +145,7 @@ method configure {
     $self->add_plugins(qw(
         MetaConfig
         MetaJSON
+        PkgVersion
         PodSyntaxTests
         PodCoverageTests
     ));
