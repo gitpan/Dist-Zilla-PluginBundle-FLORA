@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::PluginBundle::FLORA::AUTHORITY = 'cpan:FLORA';
 }
 BEGIN {
-  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.04';
+  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.05';
 }
 # ABSTRACT: Build your distributions like FLORA does
 
@@ -19,6 +19,12 @@ has dist => (
     is       => 'ro',
     isa      => Str,
     required => 1,
+);
+
+has authority => (
+    is      => 'ro',
+    isa     => Str,
+    default => 'cpan:FLORA',
 );
 
 has auto_prereq => (
@@ -157,7 +163,7 @@ method configure {
             homepage   => $self->homepage_url,
         }],
         [Authority => {
-            authority   => 'cpan:FLORA',
+            authority   => $self->authority,
             do_metadata => 1,
         }]
     );
