@@ -3,12 +3,13 @@ BEGIN {
   $Dist::Zilla::PluginBundle::FLORA::AUTHORITY = 'cpan:FLORA';
 }
 BEGIN {
-  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.05';
+  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.06';
 }
 # ABSTRACT: Build your distributions like FLORA does
 
 use Moose 1.00;
 use Method::Signatures::Simple;
+use Moose::Util::TypeConstraints;
 use MooseX::Types::URI qw(Uri);
 use MooseX::Types::Moose qw(Bool Str CodeRef);
 use MooseX::Types::Structured 0.20 qw(Map Dict Optional);
@@ -97,9 +98,30 @@ has repository_at => (
     predicate => 'has_repository_at',
 );
 
+has github_user => (
+    is      => 'ro',
+    isa     => Str,
+    default => 'rafl',
+);
+
+my $map_tc = Map[Str, Dict[pattern => CodeRef, mangle => Optional[CodeRef]]];
+coerce $map_tc, from Map[Str, Dict[pattern => Str|CodeRef, mangle => Optional[CodeRef]]], via {
+    my %in = %{ $_ };
+    return { map {
+        ($_ => {
+            %{ $in{$_} },
+            (ref $in{$_}->{pattern} ne 'CODE'
+                 ? (pattern => sub { $in{$_}->{pattern} })
+                 : ()),
+        })
+    } keys %in };
+};
+
 has _repository_host_map => (
     traits  => [qw(Hash)],
-    isa     => Map[Str, Dict[pattern => Str, mangle => Optional[CodeRef]]],
+    isa     => $map_tc,
+    coerce  => 1,
+    lazy    => 1,
     builder => '_build__repository_host_map',
     handles => {
         _repository_data_for => 'get',
@@ -109,8 +131,11 @@ has _repository_host_map => (
 sub lower { lc shift }
 
 method _build__repository_host_map {
+    my $github_pattern = sub { sprintf 'git://github.com/%s/%%s.git', $self->github_user };
+
     return {
-        github => { pattern => 'git://github.com/rafl/%s.git', mangle => \&lower },
+        github => { pattern => $github_pattern, mangle => \&lower },
+        GitHub => { pattern => $github_pattern },
         gitmo  => { pattern => 'git://git.moose.perl.org/gitmo/%s.git' },
         (map { ($_ => { pattern => "git://git.shadowcat.co.uk/${_}/%s.git" }) }
              qw(catagits p5sagit dbsrgits)),
@@ -137,7 +162,7 @@ method _resolve_repository ($repo) {
     my $dist = $self->dist;
     my $data = $self->_repository_data_for($repo);
     confess "unknown repository service $repo" unless $data;
-    return sprintf $data->{pattern}, (exists $data->{mangle} ? $data->{mangle}->($dist) : $dist);
+    return sprintf $data->{pattern}->(), (exists $data->{mangle} ? $data->{mangle}->($dist) : $dist);
 }
 
 override BUILDARGS => method ($class:) {
@@ -154,6 +179,7 @@ method configure {
         PkgVersion
         PodSyntaxTests
         PodCoverageTests
+        SanityTests
     ));
 
     $self->add_plugins(
@@ -213,7 +239,7 @@ It is roughly equivalent to:
   [MetaJSON]
 
   [MetaResources]
-  repository = git://github.com/rafl/${lowercase_distribution}
+  repository = git://github.com/rafl/${lowercase_dist}
   bugtracker = http://rt.cpan.org/Public/Dist/Display.html?Name=${dist}
   homepage   = http://search.cpan.org/dist/${dist}
 

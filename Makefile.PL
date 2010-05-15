@@ -28,19 +28,21 @@ my %WriteMakefileArgs = (
     'Dist::Zilla::Plugin::MetaJSON' => '0',
     'Dist::Zilla::Plugin::MetaResources' => '0',
     'Dist::Zilla::Plugin::PodWeaver' => '0',
+    'Dist::Zilla::Plugin::SanityTests' => '0',
     'Dist::Zilla::Plugin::TaskWeaver' => '0',
     'Dist::Zilla::PluginBundle::Classic' => '0',
     'Dist::Zilla::PluginBundle::Filter' => '0',
     'Dist::Zilla::Role::PluginBundle::Easy' => '0',
     'Method::Signatures::Simple' => '0',
     'Moose' => '1.00',
+    'Moose::Util::TypeConstraints' => '0',
     'MooseX::Types::Moose' => '0',
     'MooseX::Types::Structured' => '0.20',
     'MooseX::Types::URI' => '0',
     'Pod::Weaver::PluginBundle::FLORA' => '0',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.05',
+  'VERSION' => '0.06',
   'test' => {
     'TESTS' => 't/*.t'
   }

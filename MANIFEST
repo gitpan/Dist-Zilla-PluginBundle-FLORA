@@ -7,5 +7,7 @@ Makefile.PL
 README
 dist.ini
 lib/Dist/Zilla/PluginBundle/FLORA.pm
+t/release-eol.t
+t/release-no_tabs.t
 t/release-pod-coverage.t
 t/release-pod-syntax.t
