@@ -39,10 +39,10 @@ my %WriteMakefileArgs = (
     'MooseX::Types::Moose' => '0',
     'MooseX::Types::Structured' => '0.20',
     'MooseX::Types::URI' => '0',
-    'Pod::Weaver::PluginBundle::FLORA' => '0',
+    'Pod::Weaver::PluginBundle::FLORA' => '0.02',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.06',
+  'VERSION' => '0.07',
   'test' => {
     'TESTS' => 't/*.t'
   }
