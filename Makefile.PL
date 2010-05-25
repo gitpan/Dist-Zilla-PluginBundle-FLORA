@@ -11,9 +11,7 @@ use ExtUtils::MakeMaker 6.31;
 my %WriteMakefileArgs = (
   'ABSTRACT' => 'Build your distributions like FLORA does',
   'AUTHOR' => 'Florian Ragwitz <rafl@debian.org>',
-  'BUILD_REQUIRES' => {
-    'Test::More' => '0'
-  },
+  'BUILD_REQUIRES' => {},
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.31'
   },
@@ -42,7 +40,7 @@ my %WriteMakefileArgs = (
     'Pod::Weaver::PluginBundle::FLORA' => '0.02',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.07',
+  'VERSION' => '0.08',
   'test' => {
     'TESTS' => 't/*.t'
   }

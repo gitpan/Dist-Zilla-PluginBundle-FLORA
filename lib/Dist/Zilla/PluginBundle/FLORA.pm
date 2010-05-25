@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::PluginBundle::FLORA::AUTHORITY = 'cpan:FLORA';
 }
 BEGIN {
-  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.07';
+  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.08';
 }
 # ABSTRACT: Build your distributions like FLORA does
 
@@ -44,6 +44,12 @@ has is_task => (
 method _build_is_task {
     return $self->dist =~ /^Task-/ ? 1 : 0;
 }
+
+has disable_pod_coverage_tests => (
+    is      => 'ro',
+    isa     => Bool,
+    default => 0,
+);
 
 has bugtracker_url => (
     isa     => Uri,
@@ -178,9 +184,11 @@ method configure {
         MetaJSON
         PkgVersion
         PodSyntaxTests
-        PodCoverageTests
         SanityTests
     ));
+
+    $self->add_plugins('PodCoverageTests')
+        unless $self->disable_pod_coverage_tests;
 
     $self->add_plugins(
         [MetaResources => {
