@@ -18,7 +18,7 @@ requires:
   Dist::Zilla::Plugin::AutoPrereq: 0
   Dist::Zilla::Plugin::MetaConfig: 0
   Dist::Zilla::Plugin::MetaJSON: 0
-  Dist::Zilla::Plugin::MetaResources: 0
+  Dist::Zilla::Plugin::MetaResources: 3
   Dist::Zilla::Plugin::PodWeaver: 0
   Dist::Zilla::Plugin::SanityTests: 0
   Dist::Zilla::Plugin::TaskWeaver: 0
@@ -28,6 +28,7 @@ requires:
   Method::Signatures::Simple: 0
   Moose: 1.00
   Moose::Util::TypeConstraints: 0
+  MooseX::Types::Email: 0
   MooseX::Types::Moose: 0
   MooseX::Types::Structured: 0.20
   MooseX::Types::URI: 0
@@ -37,7 +38,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-PluginBundle-FLORA
   homepage: http://search.cpan.org/dist/Dist-Zilla-PluginBundle-FLORA
   repository: git://github.com/rafl/dist-zilla-pluginbundle-flora.git
-version: 0.08
+version: 0.09
 x_Dist_Zilla:
   plugins:
     -

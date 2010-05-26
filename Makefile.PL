@@ -24,7 +24,7 @@ my %WriteMakefileArgs = (
     'Dist::Zilla::Plugin::AutoPrereq' => '0',
     'Dist::Zilla::Plugin::MetaConfig' => '0',
     'Dist::Zilla::Plugin::MetaJSON' => '0',
-    'Dist::Zilla::Plugin::MetaResources' => '0',
+    'Dist::Zilla::Plugin::MetaResources' => '3',
     'Dist::Zilla::Plugin::PodWeaver' => '0',
     'Dist::Zilla::Plugin::SanityTests' => '0',
     'Dist::Zilla::Plugin::TaskWeaver' => '0',
@@ -34,13 +34,14 @@ my %WriteMakefileArgs = (
     'Method::Signatures::Simple' => '0',
     'Moose' => '1.00',
     'Moose::Util::TypeConstraints' => '0',
+    'MooseX::Types::Email' => '0',
     'MooseX::Types::Moose' => '0',
     'MooseX::Types::Structured' => '0.20',
     'MooseX::Types::URI' => '0',
     'Pod::Weaver::PluginBundle::FLORA' => '0.02',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.08',
+  'VERSION' => '0.09',
   'test' => {
     'TESTS' => 't/*.t'
   }
