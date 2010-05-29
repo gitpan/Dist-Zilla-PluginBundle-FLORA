@@ -3,11 +3,13 @@ abstract: 'Build your distributions like FLORA does'
 author:
   - 'Florian Ragwitz <rafl@debian.org>'
 build_requires:
+  File::Find: 0
+  File::Temp: 0
   Test::More: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.31
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 3.101421, CPAN::Meta::Converter version 2.101450'
+generated_by: 'Dist::Zilla version 3.101421, CPAN::Meta::Converter version 2.101460'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -16,11 +18,12 @@ name: Dist-Zilla-PluginBundle-FLORA
 requires:
   Dist::Zilla::Plugin::Authority: 0
   Dist::Zilla::Plugin::AutoPrereq: 0
+  Dist::Zilla::Plugin::EOLTests: 0
   Dist::Zilla::Plugin::MetaConfig: 0
   Dist::Zilla::Plugin::MetaJSON: 0
   Dist::Zilla::Plugin::MetaResources: 3
+  Dist::Zilla::Plugin::NoTabsTests: 0
   Dist::Zilla::Plugin::PodWeaver: 0
-  Dist::Zilla::Plugin::SanityTests: 0
   Dist::Zilla::Plugin::TaskWeaver: 0
   Dist::Zilla::PluginBundle::Classic: 0
   Dist::Zilla::PluginBundle::Filter: 0
@@ -38,7 +41,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-PluginBundle-FLORA
   homepage: http://search.cpan.org/dist/Dist-Zilla-PluginBundle-FLORA
   repository: git://github.com/rafl/dist-zilla-pluginbundle-flora.git
-version: 0.09
+version: 0.10
 x_Dist_Zilla:
   plugins:
     -
@@ -114,9 +117,13 @@ x_Dist_Zilla:
       name: '@FLORA/PodSyntaxTests'
       version: 3.101421
     -
-      class: Dist::Zilla::Plugin::SanityTests
-      name: '@FLORA/SanityTests'
-      version: 0.02
+      class: Dist::Zilla::Plugin::NoTabsTests
+      name: '@FLORA/NoTabsTests'
+      version: 0.01
+    -
+      class: Dist::Zilla::Plugin::EOLTests
+      name: '@FLORA/EOLTests'
+      version: 0.01
     -
       class: Dist::Zilla::Plugin::PodCoverageTests
       name: '@FLORA/PodCoverageTests'
@@ -132,7 +139,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::PodWeaver
       name: '@FLORA/PodWeaver'
-      version: 3.100710
+      version: 3.101470
     -
       class: Dist::Zilla::Plugin::AutoPrereq
       name: '@FLORA/AutoPrereq'
@@ -145,6 +152,10 @@ x_Dist_Zilla:
           type: requires
       name: Prereq
       version: 3.101421
+    -
+      class: Dist::Zilla::Plugin::CompileTests
+      name: CompileTests
+      version: 1.100740
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'

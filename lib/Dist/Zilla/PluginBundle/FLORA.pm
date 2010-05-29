@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::PluginBundle::FLORA::AUTHORITY = 'cpan:FLORA';
 }
 BEGIN {
-  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.09';
+  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.10';
 }
 # ABSTRACT: Build your distributions like FLORA does
 
@@ -262,7 +262,8 @@ method configure {
         MetaJSON
         PkgVersion
         PodSyntaxTests
-        SanityTests
+        NoTabsTests
+        EOLTests
     ));
 
     $self->add_plugins('PodCoverageTests')
@@ -327,7 +328,8 @@ It is roughly equivalent to:
   [PkgVersion]
   [PodSyntaxTests]
   [PodCoverageTests]
-  [SanityTests]
+  [NoTabsTests]
+  [EOLTests]
 
   [MetaResources]
   repository = git://github.com/rafl/${lowercase_dist}

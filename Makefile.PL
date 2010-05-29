@@ -22,11 +22,12 @@ my %WriteMakefileArgs = (
   'PREREQ_PM' => {
     'Dist::Zilla::Plugin::Authority' => '0',
     'Dist::Zilla::Plugin::AutoPrereq' => '0',
+    'Dist::Zilla::Plugin::EOLTests' => '0',
     'Dist::Zilla::Plugin::MetaConfig' => '0',
     'Dist::Zilla::Plugin::MetaJSON' => '0',
     'Dist::Zilla::Plugin::MetaResources' => '3',
+    'Dist::Zilla::Plugin::NoTabsTests' => '0',
     'Dist::Zilla::Plugin::PodWeaver' => '0',
-    'Dist::Zilla::Plugin::SanityTests' => '0',
     'Dist::Zilla::Plugin::TaskWeaver' => '0',
     'Dist::Zilla::PluginBundle::Classic' => '0',
     'Dist::Zilla::PluginBundle::Filter' => '0',
@@ -41,7 +42,7 @@ my %WriteMakefileArgs = (
     'Pod::Weaver::PluginBundle::FLORA' => '0.02',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.09',
+  'VERSION' => '0.10',
   'test' => {
     'TESTS' => 't/*.t'
   }
