@@ -11,7 +11,11 @@ use ExtUtils::MakeMaker 6.31;
 my %WriteMakefileArgs = (
   'ABSTRACT' => 'Build your distributions like FLORA does',
   'AUTHOR' => 'Florian Ragwitz <rafl@debian.org>',
-  'BUILD_REQUIRES' => {},
+  'BUILD_REQUIRES' => {
+    'File::Find' => '0',
+    'File::Temp' => '0',
+    'Test::More' => '0'
+  },
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.31'
   },
@@ -22,7 +26,7 @@ my %WriteMakefileArgs = (
   'PREREQ_PM' => {
     'Dist::Zilla::Plugin::Authority' => '0',
     'Dist::Zilla::Plugin::AutoPrereq' => '0',
-    'Dist::Zilla::Plugin::EOLTests' => '0',
+    'Dist::Zilla::Plugin::EOLTests' => '0.02',
     'Dist::Zilla::Plugin::MetaConfig' => '0',
     'Dist::Zilla::Plugin::MetaJSON' => '0',
     'Dist::Zilla::Plugin::MetaResources' => '3',
@@ -39,10 +43,10 @@ my %WriteMakefileArgs = (
     'MooseX::Types::Moose' => '0',
     'MooseX::Types::Structured' => '0.20',
     'MooseX::Types::URI' => '0',
-    'Pod::Weaver::PluginBundle::FLORA' => '0.02',
+    'Pod::Weaver::PluginBundle::FLORA' => '0.03',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.10',
+  'VERSION' => '0.11',
   'test' => {
     'TESTS' => 't/*.t'
   }
@@ -51,10 +55,10 @@ my %WriteMakefileArgs = (
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
   my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
-  my $pp = $WriteMakefileArgs{PREREQ_PM}; 
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
   for my $mod ( keys %$br ) {
     if ( exists $pp->{$mod} ) {
-      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod}; 
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
     }
     else {
       $pp->{$mod} = $br->{$mod};

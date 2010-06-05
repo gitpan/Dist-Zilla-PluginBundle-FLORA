@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::PluginBundle::FLORA::AUTHORITY = 'cpan:FLORA';
 }
 BEGIN {
-  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.10';
+  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.11';
 }
 # ABSTRACT: Build your distributions like FLORA does
 
@@ -47,6 +47,12 @@ method _build_is_task {
 }
 
 has disable_pod_coverage_tests => (
+    is      => 'ro',
+    isa     => Bool,
+    default => 0,
+);
+
+has disable_trailing_whitespace_tests => (
     is      => 'ro',
     isa     => Bool,
     default => 0,
@@ -263,7 +269,6 @@ method configure {
         PkgVersion
         PodSyntaxTests
         NoTabsTests
-        EOLTests
     ));
 
     $self->add_plugins('PodCoverageTests')
@@ -281,7 +286,10 @@ method configure {
         [Authority => {
             authority   => $self->authority,
             do_metadata => 1,
-        }]
+        }],
+        [EOLTests => {
+            trailing_whitespace => !$self->disable_trailing_whitespace_tests,
+        }],
     );
 
 
@@ -300,6 +308,8 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 =pod
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -347,7 +357,7 @@ It is roughly equivalent to:
 
 =head1 AUTHOR
 
-  Florian Ragwitz <rafl@debian.org>
+Florian Ragwitz <rafl@debian.org>
 
 =head1 COPYRIGHT AND LICENSE
 
