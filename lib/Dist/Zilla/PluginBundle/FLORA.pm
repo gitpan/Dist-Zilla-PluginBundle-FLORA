@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::PluginBundle::FLORA::AUTHORITY = 'cpan:FLORA';
 }
 BEGIN {
-  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.11';
+  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.12';
 }
 # ABSTRACT: Build your distributions like FLORA does
 
@@ -45,6 +45,12 @@ has is_task => (
 method _build_is_task {
     return $self->dist =~ /^Task-/ ? 1 : 0;
 }
+
+has weaver_config_plugin => (
+    is      => 'ro',
+    isa     => Str,
+    default => '@FLORA',
+);
 
 has disable_pod_coverage_tests => (
     is      => 'ro',
@@ -193,7 +199,7 @@ method _build__repository_host_map {
             web_pattern => $github_web_pattern,
         },
         gitmo => {
-            pattern     => 'git://git.moose.perl.org/gitmo/%s.git',
+            pattern     => 'git://git.moose.perl.org/%s.git',
             web_pattern => $scsys_web_pattern_proto->('gitmo'),
         },
         (map {
@@ -295,7 +301,11 @@ method configure {
 
     $self->is_task
         ? $self->add_plugins('TaskWeaver')
-        : $self->add_plugins([ 'PodWeaver' => { config_plugin => '@FLORA' } ]);
+        : $self->add_plugins(
+              [PodWeaver => {
+                  config_plugin => $self->weaver_config_plugin,
+              }],
+          );
 
     $self->add_plugins('AutoPrereq') if $self->auto_prereq;
 }
