@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::PluginBundle::FLORA::AUTHORITY = 'cpan:FLORA';
 }
 BEGIN {
-  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.12';
+  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.13';
 }
 # ABSTRACT: Build your distributions like FLORA does
 
@@ -29,10 +29,18 @@ has authority => (
     default => 'cpan:FLORA',
 );
 
+# backcompat
 has auto_prereq => (
     is      => 'ro',
     isa     => Bool,
     default => 1,
+);
+
+has auto_prereqs => (
+    is      => 'ro',
+    isa     => Bool,
+    lazy    => 1,
+    default => sub { shift->auto_prereq },
 );
 
 has is_task => (
@@ -142,6 +150,7 @@ my $map_tc = Map[
     Str, Dict[
         pattern     => CodeRef,
         web_pattern => CodeRef,
+        type        => Optional[Str],
         mangle      => Optional[CodeRef],
     ]
 ];
@@ -150,6 +159,7 @@ coerce $map_tc, from Map[
     Str, Dict[
         pattern     => Str|CodeRef,
         web_pattern => Str|CodeRef,
+        type        => Optional[Str],
         mangle      => Optional[CodeRef],
     ]
 ], via {
@@ -202,6 +212,11 @@ method _build__repository_host_map {
             pattern     => 'git://git.moose.perl.org/%s.git',
             web_pattern => $scsys_web_pattern_proto->('gitmo'),
         },
+        catsvn => {
+            type        => 'svn',
+            pattern     => 'http://dev.catalyst.perl.org/repos/Catalyst/%s/',
+            web_pattern => 'http://dev.catalystframework.org/svnweb/Catalyst/browse/%s',
+        },
         (map {
             ($_ => {
                 pattern     => "git://git.shadowcat.co.uk/${_}/%s.git",
@@ -253,6 +268,9 @@ has repository_type => (
 );
 
 method _build_repository_type {
+    my $data = $self->_repository_data_for($self->repository_at);
+    return $data->{type} if exists $data->{type};
+
     for my $vcs (qw(git svn)) {
         return $vcs if $self->repository_scheme eq $vcs;
     }
@@ -307,7 +325,7 @@ method configure {
               }],
           );
 
-    $self->add_plugins('AutoPrereq') if $self->auto_prereq;
+    $self->add_plugins('AutoPrereqs') if $self->auto_prereqs;
 }
 
 with 'Dist::Zilla::Role::PluginBundle::Easy';
@@ -352,9 +370,12 @@ It is roughly equivalent to:
   [EOLTests]
 
   [MetaResources]
-  repository = git://github.com/rafl/${lowercase_dist}
-  bugtracker = http://rt.cpan.org/Public/Dist/Display.html?Name=${dist}
-  homepage   = http://search.cpan.org/dist/${dist}
+  repository.type   = git
+  repository.url    = git://github.com/rafl/${lowercase_dist}
+  repository.web    = http://github.com/rafl/${lowercase_dist}
+  bugtracker.web    = http://rt.cpan.org/Public/Dist/Display.html?Name=${dist}
+  bugtracker.mailto = bug-${dist}@rt.cpan.org
+  homepage          = http://search.cpan.org/dist/${dist}
 
   [Authority]
   authority   = cpan:FLORA
@@ -363,7 +384,7 @@ It is roughly equivalent to:
   [PodWeaver]
   config_plugin = @FLORA
 
-  [AutoPrereq]
+  [AutoPrereqs]
 
 =head1 AUTHOR
 

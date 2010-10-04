@@ -25,7 +25,7 @@ my %WriteMakefileArgs = (
   'NAME' => 'Dist::Zilla::PluginBundle::FLORA',
   'PREREQ_PM' => {
     'Dist::Zilla::Plugin::Authority' => '0',
-    'Dist::Zilla::Plugin::AutoPrereq' => '0',
+    'Dist::Zilla::Plugin::AutoPrereqs' => '0',
     'Dist::Zilla::Plugin::EOLTests' => '0.02',
     'Dist::Zilla::Plugin::MetaConfig' => '0',
     'Dist::Zilla::Plugin::MetaJSON' => '0',
@@ -46,7 +46,7 @@ my %WriteMakefileArgs = (
     'Pod::Weaver::PluginBundle::FLORA' => '0.03',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.12',
+  'VERSION' => '0.13',
   'test' => {
     'TESTS' => 't/*.t'
   }
