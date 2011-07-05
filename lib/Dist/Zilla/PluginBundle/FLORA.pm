@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::PluginBundle::FLORA::AUTHORITY = 'cpan:FLORA';
 }
 BEGIN {
-  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.13';
+  $Dist::Zilla::PluginBundle::FLORA::VERSION = '0.14';
 }
 # ABSTRACT: Build your distributions like FLORA does
 
@@ -120,7 +120,7 @@ method _build_homepage_url {
 has _cpansearch_pattern => (
     is      => 'ro',
     isa     => Str,
-    default => 'http://search.cpan.org/dist/%s',
+    default => 'http://metacpan.org/release/%s',
 );
 
 has repository => (
@@ -375,7 +375,7 @@ It is roughly equivalent to:
   repository.web    = http://github.com/rafl/${lowercase_dist}
   bugtracker.web    = http://rt.cpan.org/Public/Dist/Display.html?Name=${dist}
   bugtracker.mailto = bug-${dist}@rt.cpan.org
-  homepage          = http://search.cpan.org/dist/${dist}
+  homepage          = http://metacpan.org/release/${dist}
 
   [Authority]
   authority   = cpan:FLORA
@@ -392,7 +392,7 @@ Florian Ragwitz <rafl@debian.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Florian Ragwitz.
+This software is copyright (c) 2011 by Florian Ragwitz.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
